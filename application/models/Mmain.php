@@ -26,6 +26,14 @@ class Mmain extends CI_MODEL{
         $query = $this->db->get();
         return $query->result();
     }
+    function show_all_data_order_by($table,$field){
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->order_by($field);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
     function show_all_data_where_list($table,$where,$limit,$start){
         $this->db->select('*');
         $this->db->from($table);
@@ -76,20 +84,20 @@ class Mmain extends CI_MODEL{
     }
     function show_all_data_join_access($id_role){
         $this->db->select('*');
-        $this->db->from('tbl_menu');
-        $this->db->join('tbl_user_access', 'tbl_menu.id_menu = tbl_user_access.id_menu');
+        $this->db->from('tbl_sub_menu');
+        $this->db->join('tbl_user_access', 'tbl_sub_menu.id_sub_menu = tbl_user_access.id_sub_menu');
         $this->db->join('tbl_role', 'tbl_user_access.id_role = tbl_role.id_role');
         $this->db->where('tbl_role.id_role =',$id_role);
         $query = $this->db->get();
         return $query->result();
     }
     function show_menu_selected($role_id){
-        $this->db->select('*');
-        $this->db->from('tbl_menu');
-        $this->db->join('tbl_user_access','tbl_menu.id_menu = tbl_user_access.id_menu');
-        $this->db->where('tbl_user_access.id_role = ' ,$role_id);
-        $this->db->where('tbl_menu.is_active = 1');
-        $this->db->order_by('tbl_menu.id_menu ASC');
+        $this->db->select('tbl_menu.id_menu, tbl_menu.nama_menu, tbl_sub_menu.nama_sub_menu');
+        $this->db->from('tbl_user_access');
+        $this->db->join('tbl_sub_menu','tbl_user_access.id_sub_menu = tbl_sub_menu.id_sub_menu');
+        $this->db->join('tbl_menu','tbl_menu.id_menu = tbl_sub_menu.id_menu');
+        $this->db->where('tbl_user_access.id_role =',$role_id );
+        $this->db->group_by('tbl_menu.id_menu');
         $query = $this->db->get();
         return $query->result();
     }

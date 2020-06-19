@@ -6,6 +6,7 @@ class Cbarang extends CI_Controller {
         $this->load->model('Mmain');
         $this->load->library('session');
         $this->load->library('pagination');
+        $this->load->helper('main_helper');
     }
     public function index(){
         if ($this->session->userdata['logged_in'] == FALSE)
@@ -63,30 +64,33 @@ class Cbarang extends CI_Controller {
         $seri_barang                = $this->input->post('seri_barang');
         $stok_barang                = $this->input->post('stok_barang');
         $product_img1               = $_FILES['pimages']['name'];
+
         $config['upload_path']      = './assets/img/barang/';
         $config['allowed_types']    = 'gif|jpg|png';
-        $config['max_size']         = '100';
+        $config['max_size']         = '10000';
         $config['max_width']        = '1024';
         $config['max_height']       = '768';
+
         $this->load->library('upload', $config);
 
-        $data = array(
-            'tgl_barang'      => $tgl_barang,        
-            'nama_barang'     => $nama_barang,
-            'mac_barang'      => $mac_barang,
-            'seri_barang'     => $seri_barang,
-            'stok_barang'     => $stok_barang,
-            'img_barang'      => $product_img1
-        );
+
         if ( ! $this->upload->do_upload('pimages')){
             $error = array('error' => $this->upload->display_errors());
         }
         else {
             $upload_data = $this->upload->data();
             $product_img1 = $upload_data['file_name'];
-        }
 
-        $query = $this->Mmain->save_data($data,'tbl_barang');
+            $data = [
+                'tgl_barang'      => $tgl_barang,        
+                'nama_barang'     => $nama_barang,
+                'mac_barang'      => $mac_barang,
+                'seri_barang'     => $seri_barang,
+                'stok_barang'     => $stok_barang,
+                'img_barang'      => $product_img1
+            ];
+            $this->Mmain->save_data($data,'tbl_barang');
+        }
         redirect('Cbarang/index');
     }
     public function editBarang($id_barang){
@@ -115,21 +119,40 @@ class Cbarang extends CI_Controller {
         $where = array(
             'id_barang' => $id_barang
         );
-        $data  = array(
-            'nama_barang' => $nama_barang,
-            'mac_barang'  => $mac_barang,
-            'seri_barang' => $seri_barang,
-            'stok_barang' => $stok_barang,
-            'img_barang'      => $product_img1
-        );
         if ( ! $this->upload->do_upload('pimages')){
             $error = array('error' => $this->upload->display_errors());
         }
         else {
             $upload_data = $this->upload->data();
             $product_img1 = $upload_data['file_name'];
+            $data  = [
+                'nama_barang' => $nama_barang,
+                'mac_barang'  => $mac_barang,
+                'seri_barang' => $seri_barang,
+                'stok_barang' => $stok_barang,
+                'img_barang'  => $product_img1
+            ];
+            $this->Mmain->update_data($data,$where,'tbl_barang');
         }
-        $this->Mmain->update_data($data,$where,'tbl_barang');
         redirect('Cbarang/index');
+    }
+    public function printPdf(){
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->SetHTMLHeader('
+        <p style="text-align:center">Dinas Komunikasi dan Informatika Bondowoso <br> Jalan Panjaitan 56 Bondowoso</p>
+        
+        ');
+        $mpdf->SetHTMLFooter('
+        <table width = "100%">
+            <tr>
+                <td style="text-align:left">{DATE -j-m-Y}</td>
+                <td style="text-align:right">Halaman {PAGENO}/{nbpg}</td>
+            </tr>
+        </table>
+        ');
+        $data['data']= $this->Mmain->show_all_data('tbl_barang');
+        $html = $this->load->view('Vbarangpdf',$data,true);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
     }
 }

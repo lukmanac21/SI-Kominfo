@@ -39,8 +39,14 @@
                                 </div>
                                 <div class = "row">
                                     <div class="col-sm-6">      
-                                        <div class="form-group">
+                                            <div class="form-group">
                                             <label>Mac Barang</label>
+                                                <input id="currency" type = "text" class = "currency form-control" name = "mac_barang" value ="<?php echo $row->mac_barang;?>"> 
+                                            </div>
+                                        </div>
+                                    <div class="col-sm-6">      
+                                        <div class="form-group">
+                                            <label>Seri Barang</label>
                                             <input type = "text" class = "form-control" name = "seri_barang" value ="<?php echo $row->seri_barang;?>"> 
                                         </div>
                                     </div>

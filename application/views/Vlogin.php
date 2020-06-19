@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Login V2</title>
+	<title>Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="<?php echo base_url();?>assets/login/images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="<?php echo base_url();?>assets/login/images/icons/icon.jpg"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/login/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -26,18 +26,31 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/login/css/main.css">
 <!--===============================================================================================-->
+<style>
+body {
+	background-image: url('<?php echo base_url('assets/bg/bg.jpg');?>');
+	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
+  	height: 100%;
+  	width: 100%;
+}
+</style>
 </head>
 <body>
-<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
+	<div>
+	<br>
+	<br>
+	<br>
+	<div class="row" style="margin-left:33%;">
+			<div class="wrap-login100" style="width:500px; height:500px;">
 				<form class="login100-form validate-form" action="<?php echo site_url('Clogin/login_action');?>" method="post">
 					<span class="login100-form-title p-b-26">
-						Welcome
+						Sistem Informasi Data Diskominfo Bondowoso
 					</span>
-					<span class="login100-form-title p-b-48">
+					<!-- <span class="login100-form-title p-b-48">
 						<i class="zmdi zmdi-font"></i>
-					</span>
+					</span> -->
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
 						<input class="input100" type="email" name="email_user">
@@ -63,8 +76,7 @@
 				</form>
 			</div>
 		</div>
-
-        </div>
+	</div>
 <!--===============================================================================================-->
 <script src="<?php echo base_url();?>assets/login/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

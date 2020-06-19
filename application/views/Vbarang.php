@@ -21,6 +21,7 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                             <a type="button" href="<?php echo site_url('Cbarang/Addbarang');?>" class="btn btn-primary btn-md">Tambah</a>
+                            <a type="button" href="<?php echo site_url('Cbarang/printPdf');?>" class="btn btn-danger btn-md">Export To PDF</a>
                             <br>
                             <br>
                                 <div class="table-responsive">
@@ -39,7 +40,7 @@
                                                 <th>Seri Barang</th> 
                                                 <th>Mac Barang</th> 
                                                 <th>Jumlah</th>
-                                                <th colspan="2" style="text-align:center;">#</th>
+                                                <th colspan="2" style="text-align:center;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="myTable">
@@ -53,7 +54,7 @@
                                                 <td><?php echo $row->seri_barang; ?></td>
                                                 <td><?php echo $row->mac_barang; ?></td>
                                                 <td><?php echo $row->stok_barang; ?></td>
-                                                <td style="text-align:center;"> <a data-toggle="modal" data-target="#detail<?=$row->id_barang;?>" class="btn btn-info btn-sm"> Detail Foto</a></td>
+                                                <td style="text-align:center;"> <a data-toggle="modal" data-target="#detail<?=$row->id_barang;?>" class="btn btn-warning btn-sm"> Detail Foto</a></td>
                                                 <td style="text-align:center;"> <a href="<?php echo site_url('Cbarang/editBarang/') . $row->id_barang;?>" class="btn btn-info btn-sm"> Ubah</a></td>
                                                 <?php $numstart++; } ?>
                                         </tbody>

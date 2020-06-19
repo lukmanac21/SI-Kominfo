@@ -52,7 +52,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                             <label class="custom-file-label" for="pimages">Gambar</label>
-                                                <input type="file" class="custom-file-input  form-control" id="pimages" name="pimages">
+                                                <input type="file" class="custom-file-input  form-control" name="pimages">
                                             </div>
                                         </div>
                                     </div>

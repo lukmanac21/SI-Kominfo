@@ -21,7 +21,7 @@ class Cpeminjaman extends CI_Controller {
         $config["num_links"] = floor($choice);
  
         // Membuat Style pagination untuk BootStrap v4
-      $config['first_link']       = 'First';
+        $config['first_link']       = 'First';
         $config['last_link']        = 'Last';
         $config['next_link']        = 'Next';
         $config['prev_link']        = 'Prev';
@@ -56,7 +56,7 @@ class Cpeminjaman extends CI_Controller {
     public function addPeminjaman(){
         $role_id            = $this->session->userdata('id_role');
         $data['menu']       = $this->Mmain->show_menu_selected($role_id);
-        $data['brg']        = $this->Mmain->show_all_data('tbl_barang');
+        $data['brg']        = $this->Mmain->show_all_data_where('tbl_barang','stok_barang > 0');
         $data['usr']       = $this->Mmain->show_all_data('tbl_dinas');
 
 
@@ -67,7 +67,7 @@ class Cpeminjaman extends CI_Controller {
         $tgl_peminjaman     = $now;
         $id_barang          = $this->input->post('id_barang');
         $jumlah_barang      = $this->input->post('jumlah_barang');
-        $id_user            = $this->input->post('id_pegawai');
+        $id_user            = $this->input->post('id_dinas');
         $status_peminjaman  = 0;
 
         $data = array(
@@ -77,7 +77,7 @@ class Cpeminjaman extends CI_Controller {
             'id_user'               => $id_user,
             'status_peminjaman'     => $status_peminjaman
         );
-
+        //var_dump($data);
         $this->Mmain->save_data($data,'tbl_peminjaman');
         redirect('Cpeminjaman/index');
     }

@@ -8,7 +8,8 @@
                                 <p style="padding : 0px ; color: white;"></i> <?php echo $m->nama_menu;?></p>
                                 <?php 
                                     $menuId = $m->id_menu;
-                                    $querySub = "SELECT * FROM tbl_sub_menu WHERE id_menu = $menuId" ;
+                                    $roleId = $this->session->userdata('id_role');
+                                    $querySub = "SELECT * FROM tbl_sub_menu inner join tbl_user_access on tbl_user_access.id_sub_menu = tbl_sub_menu.id_sub_menu where tbl_sub_menu.id_menu = $menuId and tbl_user_access.id_role = $roleId" ;
                                     $subMenu = $this->db->query($querySub)->result_array();
                                     foreach($subMenu as $sm){
                                 ?>

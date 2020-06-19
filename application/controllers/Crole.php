@@ -34,18 +34,18 @@ class Crole extends CI_Controller {
     public function hakAksesUser($id_role){
         $role_id = $this->session->userdata('id_role');
         $data['menu'] = $this->Mmain->show_menu_selected($role_id);
-        $data['data'] = $this->Mmain->show_all_data('tbl_menu');
+        $data['data'] = $this->Mmain->show_all_data_order_by('tbl_sub_menu','nama_sub_menu');
         $data['role'] = $this->db->get_where('tbl_role',['id_role'=>$id_role])->row_array();
         $this->load->view('Vroleakses', $data);
     }
 
     public function changeaccess(){
 
-        $id_menu = $this->input->post('menuId');
+        $id_sub_menu = $this->input->post('menuId');
         $id_role = $this->input->post('roleId');
 
         $data = array(
-            'id_menu' => $id_menu,
+            'id_sub_menu' => $id_sub_menu,
             'id_role' => $id_role
         );
         $result = $this->db->get_where('tbl_user_access',$data);

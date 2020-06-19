@@ -45,54 +45,83 @@ class Csurat extends CI_Controller{
     
         $role_id = $this->session->userdata('id_role');
         $data['menu'] = $this->Mmain->show_menu_selected($role_id);
-        $data['data'] = $this->Mmain->show_data_list('tbl_dinas',$config["per_page"], $data['page']);
-        $this->load->view('Vdinas', $data);
+        $data['data'] = $this->Mmain->show_data_list('tbl_surat',$config["per_page"], $data['page']);
+        $this->load->view('Vsurat', $data);
     }
-    public function addDinas(){
+    public function addSurat(){
         $role_id = $this->session->userdata('id_role');
         $data['menu'] = $this->Mmain->show_menu_selected($role_id);
-        $this->load->view('Vdinasadd', $data);
+        $this->load->view('Vsuratadd', $data);
     }
-    public function saveDinas(){
-        $nama_dinas = $this->input->post('nama_dinas');
-        $alamat_dinas = $this->input->post('alamat_dinas');
-        $notelp_dinas = $this->input->post('notelp_dinas');
+    public function savesurat(){
+        $tgl_surat                  = $this->input->post('tgl_surat');
+        $no_surat                   = $this->input->post('no_surat');
+        $tujuan_surat               = $this->input->post('tujuan_surat');
+        $product_img1               = $_FILES['pimages']['name'];
+        $config['upload_path']      = './assets/img/surat/';
+        $config['allowed_types']    = 'gif|jpg|png';
+        $config['max_size']         = '100';
+        $config['max_width']        = '1024';
+        $config['max_height']       = '768';
+        $this->load->library('upload', $config);
 
-        $data = [
-            'nama_dinas' => $nama_dinas,
-            'alamat_dinas' => $alamat_dinas,
-            'notelp_dinas' => $notelp_dinas
-        ];
-
-        $query = $this->Mmain->save_data($data,'tbl_dinas');
-        redirect('Cdinas/index');
+        if ( ! $this->upload->do_upload('pimages')){
+            $error = array('error' => $this->upload->display_errors());
+        }
+        else {
+            $upload_data = $this->upload->data();
+            $product_img1 = $upload_data['file_name'];
+            $data = [
+                'tgl_surat' => $tgl_surat,
+                'no_surat' => $no_surat,
+                'tujuan_surat' => $tujuan_surat,
+                'img_surat' => $product_img1
+            ];
+            $this->Mmain->save_data($data,'tbl_surat');
+        }
+        redirect('Csurat/index');
     }
-    public function editDinas($id_dinas){
+    public function editsurat($id_surat){
         $where = [
-            'id_dinas' => $id_dinas
+            'id_surat' => $id_surat
         ];
         $role_id = $this->session->userdata('id_role');
         $data['menu'] = $this->Mmain->show_menu_selected($role_id);
-        $data['data'] = $this->Mmain->show_all_data_where('tbl_dinas',$where);
-        $this->load->view('Vdinasedit.php',$data);
+        $data['data'] = $this->Mmain->show_all_data_where('tbl_surat',$where);
+        $this->load->view('Vsuratedit.php',$data);
     }
-    public function updateDinas(){
-        $id_dinas = $this->input->post('id_dinas');
-        $nama_dinas = $this->input->post('nama_dinas');
-        $alamat_dinas = $this->input->post('alamat_dinas');
-        $notelp_dinas = $this->input->post('notelp_dinas');
+    public function updatesurat(){
+        $id_surat                   = $this->input->post('id_surat');
+        $tgl_surat                  = $this->input->post('tgl_surat');
+        $no_surat                   = $this->input->post('no_surat');
+        $tujuan_surat               = $this->input->post('tujuan_surat');
+        $product_img1               = $_FILES['pimages']['name'];
+        $config['upload_path']      = './assets/img/surat/';
+        $config['allowed_types']    = 'gif|jpg|png';
+        $config['max_size']         = '100';
+        $config['max_width']        = '1024';
+        $config['max_height']       = '768';
+        $this->load->library('upload', $config);
 
-        $data = [
-            'nama_dinas' => $nama_dinas,
-            'alamat_dinas' => $alamat_dinas,
-            'notelp_dinas'=> $notelp_dinas
-        ];
         $where = [
-            'id_dinas' => $id_dinas
+            'id_surat' => $id_surat
         ];
 
-        $this->Mmain->update_data($data,$where,'tbl_dinas');
-        redirect('Cdinas/index');
+        if ( ! $this->upload->do_upload('pimages')){
+            $error = array('error' => $this->upload->display_errors());
+        }
+        else {
+            $upload_data = $this->upload->data();
+            $product_img1 = $upload_data['file_name'];
+            $data = [
+                'tgl_surat' => $tgl_surat,
+                'no_surat' => $no_surat,
+                'tujuan_surat' => $tujuan_surat,
+                'img_surat' => $product_img1
+            ];
+            $this->Mmain->update_data($data,$where,'tbl_surat');
+        }
+        redirect('Csurat/index');
     }
 }
 ?>

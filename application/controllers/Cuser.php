@@ -64,7 +64,7 @@ class Cuser extends CI_Controller {
             'nama_user'     => $nama_user,
             'id_role'   => $id_role,
             'email_user' => $email_user,
-            'password_user' => $password_user
+            'password_user' => sha1($password_user)
         );
 
         $this->Mmain->save_data($data,'tbl_user');

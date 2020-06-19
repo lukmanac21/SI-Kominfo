@@ -36,7 +36,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Jumlah</label>
-                                            <input type = "number" class = "form-control" name = "jumlah_barang">
+                                            <input type = "number" class = "form-control" min="1" name = "jumlah_barang">
                                         </div>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                     <div class="col-sm-6">      
                                         <div class="form-group">
                                             <label>Nama Peminjam</label>
-                                            <select name = "id_pegawai" class="form-control">
+                                            <select name = "id_dinas" class="form-control">
                                             <option>Not Selected</option>
                                             <?php foreach($usr as $rowUsr){?>
                                             <option value="<?php echo $rowUsr->id_dinas?>"><?php echo $rowUsr->nama_dinas;?></option>

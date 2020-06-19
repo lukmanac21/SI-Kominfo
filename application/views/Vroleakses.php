@@ -36,12 +36,12 @@
                                         foreach ($data as $row) { ?>
                                             <tr>
                                                 <td><?php echo $i;?></td>
-                                                <td><?php echo $row->nama_menu; ?></td>
+                                                <td><?php echo $row->nama_sub_menu; ?></td>
                                                 <td>
                                                     <div id="form-check-input" class = "form-check">
                                                         <input class="form-check-input" type="checkbox"
-                                                        <?= get_access($role['id_role'],$row->id_menu);?>
-                                                        data-role="<?= $role['id_role'];?>" data-menu="<?= $row->id_menu;?>">
+                                                        <?= get_access($role['id_role'],$row->id_sub_menu);?>
+                                                        data-role="<?= $role['id_role'];?>" data-menu="<?= $row->id_sub_menu;?>">
                                                     </div>
                                                 </td>
                                         <?php $i++; }?>

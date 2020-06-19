@@ -13,7 +13,7 @@ class Csubmenu extends CI_Controller {
             redirect(site_url("Clogin"));
         }
         $config['base_url'] = site_url('Csubmenu/index'); //site url
-        $config['total_rows'] = $this->db->count_all('tbl_barang'); //total row
+        $config['total_rows'] = $this->db->count_all('tbl_sub_menu'); //total row
         $config['per_page'] = 5;  //show record per halaman
         $config["uri_segment"] = 3;  // uri parameter
         $choice = $config["total_rows"] / $config["per_page"];
