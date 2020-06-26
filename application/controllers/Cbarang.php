@@ -53,16 +53,20 @@ class Cbarang extends CI_Controller {
     public function addBarang(){
         $role_id = $this->session->userdata('id_role');
         $data['menu'] = $this->Mmain->show_menu_selected($role_id);
+        $data['kegiatan'] = $this->Mmain->show_all_data('tbl_kegiatan');
+        $data['satuan'] = $this->Mmain->show_all_data('tbl_satuan');
         $data['barang'] = $this->Mmain->show_all_data('tbl_barang');
         $this->load->view('Vbarangadd', $data);
     }
     public function saveBarang(){
-        $now                        = date('Y-m-d');
-        $tgl_barang                 = $now;
+        $id_kegiatan                = $this->input->post('id_kegiatan');
+        $id_satuan                  = $this->input->post('id_satuan');
+        $tgl_barang                 = $this->input->post('tgl_barang');
         $nama_barang                = $this->input->post('nama_barang');
         $mac_barang                 = $this->input->post('mac_barang');
         $seri_barang                = $this->input->post('seri_barang');
         $stok_barang                = $this->input->post('stok_barang');
+        $harga_barang                 = $this->input->post('harga_barang');
         $product_img1               = $_FILES['pimages']['name'];
 
         $config['upload_path']      = './assets/img/barang/';
@@ -82,11 +86,14 @@ class Cbarang extends CI_Controller {
             $product_img1 = $upload_data['file_name'];
 
             $data = [
+                'id_kegiatan'     => $id_kegiatan,
+                'id_satuan'       => $id_satuan,
                 'tgl_barang'      => $tgl_barang,        
                 'nama_barang'     => $nama_barang,
                 'mac_barang'      => $mac_barang,
                 'seri_barang'     => $seri_barang,
                 'stok_barang'     => $stok_barang,
+                'harga_barang'    => $harga_barang,
                 'img_barang'      => $product_img1
             ];
             $this->Mmain->save_data($data,'tbl_barang');
@@ -99,6 +106,8 @@ class Cbarang extends CI_Controller {
         );
         $role_id = $this->session->userdata('id_role');
         $data['menu'] = $this->Mmain->show_menu_selected($role_id);
+        $data['kegiatan'] = $this->Mmain->show_all_data('tbl_kegiatan');
+        $data['satuan'] = $this->Mmain->show_all_data('tbl_satuan');
         $data['data'] = $this->Mmain->show_all_data_where('tbl_barang',$where);
         $this->load->view('Vbarangedit.php',$data);
     }
@@ -155,4 +164,49 @@ class Cbarang extends CI_Controller {
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }
+    public function printExcel(){
+        $data['data']= $this->Mmain->show_all_data('tbl_barang');
+        require(APPPATH. 'PHPExcel-1.8/Classes/PHPExcel.php');
+        require(APPPATH. 'PHPExcel-1.8/Classes/PHPExcel/Writer/Excel2007.php');
+
+        $object = new PHPExcel();
+        $object->getProperties()->setCreator("DISKOMINFO BONDOWOSO");
+        $object->getProperties()->setTitle("Data Barang");
+        $object->setActiveSheetIndex(0);
+        $object->getActiveSheet()->setCellValue('A1','No')->getColumnDimension()->setAutoSize(true);
+        $object->getActiveSheet()->setCellValue('B1','NAMA BARANG')->getColumnDimension()->setAutoSize(true);
+        $object->getActiveSheet()->setCellValue('C1','SERI BARANG')->getColumnDimension()->setAutoSize(true);
+        $object->getActiveSheet()->setCellValue('D1','MAC BARANG')->getColumnDimension()->setAutoSize(true);
+        $object->getActiveSheet()->setCellValue('E1','LOKASI BARANG')->getColumnDimension()->setAutoSize(true);
+
+        $baris = 2;
+        $no = 1;
+        
+        foreach($data['data'] as $row){
+            $object->getActiveSheet()->setCellValue('A'.$baris,$no++)->getColumnDimension()->setAutoSize(true);
+            $object->getActiveSheet()->setCellValue('B'.$baris,$row->nama_barang)->getColumnDimension()->setAutoSize(true);
+            $object->getActiveSheet()->setCellValue('C'.$baris,$row->seri_barang)->getColumnDimension()->setAutoSize(true);
+            $object->getActiveSheet()->setCellValue('D'.$baris,$row->mac_barang)->getColumnDimension()->setAutoSize(true);
+            $object->getActiveSheet()->setCellValue('E'.$baris,get_status($row->id_barang))->getColumnDimension()->setAutoSize(true);
+        
+            $baris++;
+        }
+
+        $filename = "Data_Barang".'.xlsx';
+        $object->getActiveSheet()->setTitle("Data Barang");
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.speadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+
+        $writer = PHPExcel_IOFactory::createwriter($object,'Excel2007');
+        $writer->save('php://output');
+        
+        exit;
+
+    }
+    public function getKoordinat(){
+        $this->load->view('Vcoordinat');
+    }
+
 }

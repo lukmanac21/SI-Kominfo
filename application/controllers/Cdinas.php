@@ -54,14 +54,18 @@ class Cdinas extends CI_Controller{
         $this->load->view('Vdinasadd', $data);
     }
     public function saveDinas(){
-        $nama_dinas = $this->input->post('nama_dinas');
-        $alamat_dinas = $this->input->post('alamat_dinas');
-        $notelp_dinas = $this->input->post('notelp_dinas');
+        $nama_dinas     = $this->input->post('nama_dinas');
+        $alamat_dinas   = $this->input->post('alamat_dinas');
+        $notelp_dinas   = $this->input->post('notelp_dinas');
+        $lat_dinas      = $this->input->post('lat_dinas');
+        $long_dinas     = $this->input->post('long_dinas');
 
         $data = [
-            'nama_dinas' => $nama_dinas,
+            'nama_dinas'   => $nama_dinas,
             'alamat_dinas' => $alamat_dinas,
-            'notelp_dinas' => $notelp_dinas
+            'notelp_dinas' => $notelp_dinas,
+            'lat_dinas'    => $lat_dinas,
+            'long_dinas'   => $long_dinas
         ];
 
         $query = $this->Mmain->save_data($data,'tbl_dinas');
@@ -81,11 +85,15 @@ class Cdinas extends CI_Controller{
         $nama_dinas = $this->input->post('nama_dinas');
         $alamat_dinas = $this->input->post('alamat_dinas');
         $notelp_dinas = $this->input->post('notelp_dinas');
+        $lat_dinas      = $this->input->post('lat_dinas');
+        $long_dinas     = $this->input->post('long_dinas');
 
         $data = [
             'nama_dinas' => $nama_dinas,
             'alamat_dinas' => $alamat_dinas,
-            'notelp_dinas'=> $notelp_dinas
+            'notelp_dinas'=> $notelp_dinas,
+            'lat_dinas'    => $lat_dinas,
+            'long_dinas'   => $long_dinas
         ];
         $where = [
             'id_dinas' => $id_dinas

@@ -94,7 +94,7 @@ class Csubmenu extends CI_Controller {
         $data = array (
             'id_menu' => $id_menu,
             'nama_sub_menu' => $nama_sub_menu,
-            'nama_sub_menu' => $nama_sub_menu,
+            'icon_sub_menu' => $icon_sub_menu,
             'link_menu' => $link_menu
         );
         $this->Mmain->update_data($data,$where,'tbl_sub_menu');
