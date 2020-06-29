@@ -21,12 +21,13 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                             <?php foreach($data as $row){?>
-                            <form role="form" action="<?php echo site_url('Cbarang/updateBarang');?>" method="post">
+                            <form role="form" enctype="multipart/form-data" action="<?php echo site_url('Cbarang/updateBarang');?>" method="post">
                             <div class = "row">
                                         <div class="col-sm-6">      
                                             <div class="form-group">
                                                 <label>Nama</label>
-                                                <input type = "text" class = "form-control" name = "nama_barang" required value="<?= $row->nama_barang; ?>"> 
+                                                <input type = "text" class = "form-control" name = "nama_barang" required value="<?= $row->nama_barang; ?>">
+                                                <input type = "hidden" class = "form-control" name = "id_barang" value="<?= $row->id_barang; ?>"> 
                                             </div>
                                         </div>
                                         <div class="col-sm-6">      

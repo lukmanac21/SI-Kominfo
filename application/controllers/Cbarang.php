@@ -112,11 +112,15 @@ class Cbarang extends CI_Controller {
         $this->load->view('Vbarangedit.php',$data);
     }
     public function updateBarang(){
-        $id_barang = $this->input->post('id_barang');
-        $nama_barang = $this->input->post('nama_barang');
-        $mac_barang = $this->input->post('mac_barang');
-        $seri_barang = $this->input->post('seri_barang');
-        $stok_barang = $this->input->post('stok_barang');
+        $id_barang                  = $this->input->post('id_barang');
+        $id_kegiatan                = $this->input->post('id_kegiatan');
+        $id_satuan                  = $this->input->post('id_satuan');
+        $tgl_barang                 = $this->input->post('tgl_barang');
+        $nama_barang                = $this->input->post('nama_barang');
+        $mac_barang                 = $this->input->post('mac_barang');
+        $seri_barang                = $this->input->post('seri_barang');
+        $stok_barang                = $this->input->post('stok_barang');
+        $harga_barang               = $this->input->post('harga_barang');
         $product_img1               = $_FILES['pimages']['name'];
         $config['upload_path']      = './assets/img/barang/';
         $config['allowed_types']    = 'gif|jpg|png';
@@ -125,9 +129,6 @@ class Cbarang extends CI_Controller {
         // $config['max_height']       = '768';
         $this->load->library('upload', $config);
         
-        $where = array(
-            'id_barang' => $id_barang
-        );
         if ( ! $this->upload->do_upload('pimages')){
             $error = array('error' => $this->upload->display_errors());
         }
@@ -135,13 +136,21 @@ class Cbarang extends CI_Controller {
             $upload_data = $this->upload->data();
             $product_img1 = $upload_data['file_name'];
             $data  = [
-                'nama_barang' => $nama_barang,
-                'mac_barang'  => $mac_barang,
-                'seri_barang' => $seri_barang,
-                'stok_barang' => $stok_barang,
-                'img_barang'  => $product_img1
+                'id_kegiatan'     => $id_kegiatan,
+                'id_satuan'       => $id_satuan,
+                'tgl_barang'      => $tgl_barang,        
+                'nama_barang'     => $nama_barang,
+                'mac_barang'      => $mac_barang,
+                'seri_barang'     => $seri_barang,
+                'stok_barang'     => $stok_barang,
+                'harga_barang'    => $harga_barang,
+                'img_barang'      => $product_img1
             ];
-            $this->Mmain->update_data($data,$where,'tbl_barang');
+            $where = array(
+                'id_barang' => $id_barang
+            );
+             $this->Mmain->update_data($data,$where,'tbl_barang');
+            //var_dump($data);
         }
         redirect('Cbarang/index');
     }
