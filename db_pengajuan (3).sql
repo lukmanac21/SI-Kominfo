@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2020 at 03:18 AM
+-- Generation Time: Jun 29, 2020 at 07:19 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -46,7 +46,10 @@ CREATE TABLE `tbl_barang` (
 --
 
 INSERT INTO `tbl_barang` (`id_barang`, `id_kegiatan`, `id_satuan`, `tgl_barang`, `nama_barang`, `mac_barang`, `seri_barang`, `stok_barang`, `harga_barang`, `img_barang`) VALUES
-(35, 1, 1, '2020-06-08', 'Mikrotik', '1:73:82:49:23', '010101', 1, '500000', 'download.jpg');
+(35, 1, 1, '2020-06-08', 'Mikrotik', '1:73:82:49:23:11', '010101', 1, '500000', 'download_(1)6.jpg'),
+(36, 1, 1, '2020-06-09', 'A Mikrotik', '12:31:31:23:13', '23131', 1, '500000', 'download1.jpg'),
+(37, 1, 1, '2020-06-09', 'Mikrotik Bro', '12:31:31:23:13', '', 1, '500000', '00939dff0059e823658afe98bb6d87a4.jpg'),
+(38, 2, 1, '2020-06-17', 'Mikrotik Bro', '12:31:31:23:13', '1', 1, '500000', 'download_(1)2.jpg');
 
 -- --------------------------------------------------------
 
@@ -89,7 +92,8 @@ CREATE TABLE `tbl_kegiatan` (
 --
 
 INSERT INTO `tbl_kegiatan` (`id_kegiatan`, `kode_kegiatan`, `nama_kegiatan`) VALUES
-(1, '25.03', 'Kegiatan satu');
+(1, '25.03', 'Kegiatan satu'),
+(2, '25.03.01', 'kegiatan dua');
 
 -- --------------------------------------------------------
 
@@ -437,7 +441,7 @@ ALTER TABLE `tbl_user_access`
 -- AUTO_INCREMENT for table `tbl_barang`
 --
 ALTER TABLE `tbl_barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `tbl_dinas`
@@ -449,7 +453,7 @@ ALTER TABLE `tbl_dinas`
 -- AUTO_INCREMENT for table `tbl_kegiatan`
 --
 ALTER TABLE `tbl_kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_menu`
