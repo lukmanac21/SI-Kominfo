@@ -58,7 +58,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                     <button type="reset" class="btn btn-danger">Hapus</button>
-                                    <a href="<?= site_url('Cbarang/getKoordinat');?>" rel="noopener noreferrer" target="_blank" class="btn btn-warning">Koordinat</a>
+                                    <a href="<?= site_url('Cdinas/getKoordinat');?>" rel="noopener noreferrer" target="_blank" class="btn btn-warning">Koordinat</a>
                                 </form>
                             </div>
                         </div>

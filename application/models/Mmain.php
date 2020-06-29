@@ -5,6 +5,15 @@ class Mmain extends CI_MODEL{
     function check_login($table,$where){
         return $this->db->get_where($table,$where);
     }
+    function show_data_barang_excel(){
+        $this->db->select('*');
+        $this->db->from('tbl_barang');
+        $this->db->join('tbl_kegiatan','tbl_barang.id_kegiatan = tbl_kegiatan.id_kegiatan');
+        $this->db->join('tbl_satuan','tbl_barang.id_satuan = tbl_satuan.id_satuan');
+        $this->db->order_by('tbl_barang.nama_barang ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
     function load_data_profile($id){
         $this->db->select('*');
         $this->db->from('tbl_user');

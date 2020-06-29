@@ -102,5 +102,9 @@ class Cdinas extends CI_Controller{
         $this->Mmain->update_data($data,$where,'tbl_dinas');
         redirect('Cdinas/index');
     }
+    public function getKoordinat(){
+        $data['data'] = $this->Mmain->show_all_data('tbl_dinas');
+        $this->load->view('Vcoordinat',$data);
+    }
 }
 ?>
