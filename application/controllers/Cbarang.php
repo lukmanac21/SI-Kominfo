@@ -72,8 +72,8 @@ class Cbarang extends CI_Controller {
         $config['upload_path']      = './assets/img/barang/';
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']         = '10000';
-        $config['max_width']        = '1024';
-        $config['max_height']       = '768';
+        // $config['max_width']        = '1024';
+        // $config['max_height']       = '768';
 
         $this->load->library('upload', $config);
 
@@ -120,9 +120,9 @@ class Cbarang extends CI_Controller {
         $product_img1               = $_FILES['pimages']['name'];
         $config['upload_path']      = './assets/img/barang/';
         $config['allowed_types']    = 'gif|jpg|png';
-        $config['max_size']         = '100';
-        $config['max_width']        = '1024';
-        $config['max_height']       = '768';
+        $config['max_size']         = '10000';
+        // $config['max_width']        = '1024';
+        // $config['max_height']       = '768';
         $this->load->library('upload', $config);
         
         $where = array(
@@ -159,7 +159,7 @@ class Cbarang extends CI_Controller {
             </tr>
         </table>
         ');
-        $data['data']= $this->Mmain->show_all_data('tbl_barang');
+        $data['data']= $this->Mmain->show_data_barang_excel();
         $html = $this->load->view('Vbarangpdf',$data,true);
         $mpdf->WriteHTML($html);
         $mpdf->Output();
@@ -182,7 +182,8 @@ class Cbarang extends CI_Controller {
         $object->getActiveSheet()->setCellValue('E1','SATUAN')->getColumnDimension('E')->setAutoSize(true);
         $object->getActiveSheet()->setCellValue('F1','SERI BARANG')->getColumnDimension('F')->setAutoSize(true);
         $object->getActiveSheet()->setCellValue('G1','MAC BARANG')->getColumnDimension('G')->setAutoSize(true);
-        $object->getActiveSheet()->setCellValue('H1','LOKASI BARANG')->getColumnDimension('H')->setAutoSize(true);
+        $object->getActiveSheet()->setCellValue('H1','OPD')->getColumnDimension('H')->setAutoSize(true);
+        $object->getActiveSheet()->setCellValue('I1','KETERANGAN')->getColumnDimension('I')->setAutoSize(true);
 
         $baris = 2;
         $no = 1;
@@ -196,11 +197,12 @@ class Cbarang extends CI_Controller {
             $object->getActiveSheet()->setCellValue('F'.$baris,$row->seri_barang)->getColumnDimension('F')->setAutoSize(true);
             $object->getActiveSheet()->setCellValue('G'.$baris,$row->mac_barang)->getColumnDimension('G')->setAutoSize(true);
             $object->getActiveSheet()->setCellValue('H'.$baris,get_status($row->id_barang))->getColumnDimension('H')->setAutoSize(true);
+            $object->getActiveSheet()->setCellValue('I'.$baris,date('Y',strtotime($row->tgl_barang)))->getColumnDimension('I')->setAutoSize(true);
         
             $baris++;
         }
         $from = "A1"; // or any value
-        $to = "H1"; // or any value
+        $to = "I1"; // or any value
         $object->getActiveSheet()->getStyle("$from:$to")->getFont()->setBold( true );
 
 
@@ -241,7 +243,10 @@ class Cbarang extends CI_Controller {
         'borders' => array(
             'allborders' => array(
                 'style' => PHPExcel_Style_Border::BORDER_THIN
-            )
+            )   
+        ),
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
         )
     );
 
@@ -250,6 +255,7 @@ class Cbarang extends CI_Controller {
     // }
 
         $filename = "Data_Barang".'.xlsx';
+        $object->getDefaultStyle()->applyFromArray($styleArray);
         $object->getActiveSheet()->setTitle("Data Barang");
         $object->getActiveSheet()->calculateColumnWidths();
 

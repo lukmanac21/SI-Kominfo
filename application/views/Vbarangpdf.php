@@ -33,11 +33,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<table >
 			<tr>
 				<td>No</td>
-				<td>Tanggal Input</td>
-				<td>Nama Barang</td>
+				<td>Kode Kegiatan</td>
+				<td>Nama Kegiatan</td>
+				<td>Nama Barang</td>	
+				<td>Satuan</td>
 				<td>Seri Barang</td>
 				<td>Mac Barang</td>
-				<!-- <td>Keterangan</td> -->
+				<td>Keterangan</td>
+				<td>OPD</td>
 				<td>Foto Barang</td>
 			</tr>
 			<tbody>
@@ -45,11 +48,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<?php foreach ($data as $key) {?>
 				<tr>
 				<td><?php echo $i++?></td>
-				<td><?php echo $key->tgl_barang?></td>
+				<td><?php echo $key->kode_kegiatan?></td>
+				<td><?php echo $key->nama_kegiatan?></td>
 				<td><?php echo $key->nama_barang?></td>
+				<td><?php echo $key->nama_satuan?></td>
 				<td><?php echo $key->seri_barang?></td>
 				<td><?php echo $key->mac_barang?></td>
-				<!-- <td><?= get_status($key->id_barang);?></td> -->
+				<td><?php echo date('Y', strtotime($key->tgl_barang))?></td>
+				<td><?= get_status($key->id_barang);?></td>
 				<td><img src="<?= base_url();?>assets/img/barang/<?= $key->img_barang;?>" width="100%" class="img-thumbnail"></td>
 			<?php }?>
 			</tr>
