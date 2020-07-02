@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2020 at 07:19 AM
+-- Generation Time: Jul 02, 2020 at 10:02 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -30,26 +30,27 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tbl_barang` (
   `id_barang` int(11) NOT NULL,
+  `id_jenis` int(11) NOT NULL,
   `id_kegiatan` int(11) NOT NULL,
   `id_satuan` int(11) NOT NULL,
   `tgl_barang` date NOT NULL,
   `nama_barang` varchar(100) NOT NULL,
+  `model_barang` varchar(100) NOT NULL,
+  `upc_barang` varchar(100) NOT NULL,
+  `hwversi_barang` varchar(100) NOT NULL,
+  `cmiit_barang` varchar(100) NOT NULL,
+  `kg_barang` varchar(100) NOT NULL,
+  `produk_barang` varchar(100) NOT NULL,
+  `type_barang` varchar(100) NOT NULL,
+  `plug_barang` varchar(100) NOT NULL,
   `mac_barang` varchar(60) NOT NULL,
   `seri_barang` varchar(50) NOT NULL,
+  `power_barang` varchar(20) NOT NULL,
+  `frek_barang` varchar(50) NOT NULL,
   `stok_barang` int(11) NOT NULL,
   `harga_barang` varchar(20) NOT NULL,
   `img_barang` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_barang`
---
-
-INSERT INTO `tbl_barang` (`id_barang`, `id_kegiatan`, `id_satuan`, `tgl_barang`, `nama_barang`, `mac_barang`, `seri_barang`, `stok_barang`, `harga_barang`, `img_barang`) VALUES
-(35, 1, 1, '2020-06-08', 'Mikrotik', '1:73:82:49:23:11', '010101', 1, '500000', 'download_(1)6.jpg'),
-(36, 1, 1, '2020-06-09', 'A Mikrotik', '12:31:31:23:13', '23131', 1, '500000', 'download1.jpg'),
-(37, 1, 1, '2020-06-09', 'Mikrotik Bro', '12:31:31:23:13', '', 1, '500000', '00939dff0059e823658afe98bb6d87a4.jpg'),
-(38, 2, 1, '2020-06-17', 'Mikrotik Bro', '12:31:31:23:13', '1', 1, '500000', 'download_(1)2.jpg');
 
 -- --------------------------------------------------------
 
@@ -66,14 +67,30 @@ CREATE TABLE `tbl_dinas` (
   `long_dinas` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `tbl_dinas`
+-- Table structure for table `tbl_jenis`
 --
 
-INSERT INTO `tbl_dinas` (`id_dinas`, `nama_dinas`, `alamat_dinas`, `notelp_dinas`, `lat_dinas`, `long_dinas`) VALUES
-(1, 'Dinas Kesehatan', 'Jalan', '089989898', '', ''),
-(2, 'Dinas Pariwisata', 'jalan', '0291231', '', ''),
-(3, 'Dinas Perikanan', 'Jalan', '0291231212', '-7.910421647294341', '113.85403905945235');
+CREATE TABLE `tbl_jenis` (
+  `id_jenis` int(11) NOT NULL,
+  `nama_jenis` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_jenis`
+--
+
+INSERT INTO `tbl_jenis` (`id_jenis`, `nama_jenis`) VALUES
+(1, 'Router'),
+(2, 'Switch'),
+(3, 'Ubiquiti 19'),
+(4, 'HT'),
+(5, 'Earphone'),
+(6, 'Laptop'),
+(7, 'MM'),
+(8, 'Test Satu Dua');
 
 -- --------------------------------------------------------
 
@@ -115,7 +132,6 @@ INSERT INTO `tbl_menu` (`id_menu`, `nama_menu`, `is_active`) VALUES
 (1, 'Data Dashboard', 1),
 (2, 'Data Master', 1),
 (3, 'Data Transaksi', 1),
-(5, 'Data Master Barang', 0),
 (6, 'Data Laporan', 1),
 (7, 'Data Barang dua', 1);
 
@@ -276,7 +292,8 @@ INSERT INTO `tbl_sub_menu` (`id_sub_menu`, `id_menu`, `icon_sub_menu`, `nama_sub
 (14, 2, 'fa fa-envelope', 'Master Surat', 'Csurat/index'),
 (15, 2, 'fa fa-building-o', 'Master Dinas', 'Cdinas/index'),
 (16, 2, 'fa fa-list', 'Master Kegiatan', 'Ckegiatan/index'),
-(17, 2, 'fa fa-lock', 'Master Satuan', 'Csatuan/index');
+(17, 2, 'fa fa-lock', 'Master Satuan', 'Csatuan/index'),
+(18, 2, 'fa fa-file', 'Master Jenis Barang', 'Cjenis/index');
 
 -- --------------------------------------------------------
 
@@ -349,7 +366,8 @@ INSERT INTO `tbl_user_access` (`id_user_access`, `id_role`, `id_sub_menu`) VALUE
 (24, 2, 4),
 (25, 2, 14),
 (26, 1, 16),
-(27, 1, 17);
+(27, 1, 17),
+(28, 1, 18);
 
 --
 -- Indexes for dumped tables
@@ -366,6 +384,12 @@ ALTER TABLE `tbl_barang`
 --
 ALTER TABLE `tbl_dinas`
   ADD PRIMARY KEY (`id_dinas`);
+
+--
+-- Indexes for table `tbl_jenis`
+--
+ALTER TABLE `tbl_jenis`
+  ADD PRIMARY KEY (`id_jenis`);
 
 --
 -- Indexes for table `tbl_kegiatan`
@@ -441,13 +465,19 @@ ALTER TABLE `tbl_user_access`
 -- AUTO_INCREMENT for table `tbl_barang`
 --
 ALTER TABLE `tbl_barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `tbl_dinas`
 --
 ALTER TABLE `tbl_dinas`
   MODIFY `id_dinas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_jenis`
+--
+ALTER TABLE `tbl_jenis`
+  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_kegiatan`
@@ -495,7 +525,7 @@ ALTER TABLE `tbl_satuan`
 -- AUTO_INCREMENT for table `tbl_sub_menu`
 --
 ALTER TABLE `tbl_sub_menu`
-  MODIFY `id_sub_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_sub_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbl_surat`
@@ -513,7 +543,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_user_access`
 --
 ALTER TABLE `tbl_user_access`
-  MODIFY `id_user_access` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_user_access` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

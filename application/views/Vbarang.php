@@ -45,13 +45,11 @@
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Tanggal</th>
-                                                <th>Nama Barang</th>
-                                                <th>Seri Barang</th> 
-                                                <th>Mac Barang</th> 
-                                                <th>Jumlah</th>
+                                                <th>Jenis Barang</th>
+                                                <th>Nama Barang</th> 
                                                 <th>Harga</th>
                                                 <th>Status</th>
-                                                <th colspan="2" style="text-align:center;">Action</th>
+                                                <th colspan="2" style="text-align:center;">#</th>
                                             </tr>
                                         </thead>
                                         <tbody id="myTable">
@@ -61,10 +59,8 @@
                                             <tr>
                                                 <td><?php echo $numstart;?></td>
                                                 <td><?php echo $row->tgl_barang; ?></td>                                                
+                                                <td><?php echo $row->nama_jenis; ?></td>
                                                 <td><?php echo $row->nama_barang; ?></td>
-                                                <td><?php echo $row->seri_barang; ?></td>
-                                                <td><?php echo $row->mac_barang; ?></td>
-                                                <td><?php echo $row->stok_barang; ?></td>
                                                 <td><?php echo $row->harga_barang; ?></td>
                                                 <td><?= get_status($row->id_barang);?></td>
                                                 <td style="text-align:center;"> <a data-toggle="modal" data-target="#detail<?=$row->id_barang;?>" class="btn btn-warning btn-sm"> Detail Foto</a></td>
