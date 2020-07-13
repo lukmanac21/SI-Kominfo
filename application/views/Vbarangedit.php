@@ -21,7 +21,7 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                             <?php foreach($data as $row){?>
-                                <form role="form" enctype="multipart/form-data" action="<?php echo site_url('Cbarang/saveBarang');?>" method="post">
+                                <form role="form" enctype="multipart/form-data" action="<?php echo site_url('Cbarang/updateBarang');?>" method="post">
                                     <div class = "row">
                                         <div class="col-sm-6">      
                                             <div class="form-group">
@@ -67,6 +67,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Barang</label>
                                                 <input type = "date" class = "form-control" name = "tgl_barang" value="<?= $row->tgl_barang;?>"> 
+                                                <input type = "hidden" class = "form-control" name = "id_barang" value="<?= $row->id_barang;?>"> 
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
