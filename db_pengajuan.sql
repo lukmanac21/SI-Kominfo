@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Jul 2020 pada 05.48
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.4.1
+-- Waktu pembuatan: 20 Jul 2020 pada 03.29
+-- Versi server: 10.4.6-MariaDB
+-- Versi PHP: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -110,6 +110,44 @@ INSERT INTO `tbl_barang` (`id_barang`, `id_jenis`, `id_kegiatan`, `id_satuan`, `
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tbl_detailpencairan`
+--
+
+CREATE TABLE `tbl_detailpencairan` (
+  `id_detailpncairan` int(11) NOT NULL,
+  `id_pencairan` int(11) NOT NULL,
+  `id_rekening` int(11) NOT NULL,
+  `anggaran_dtlpncairan` int(11) NOT NULL,
+  `resseb_dtlpncairan` int(11) NOT NULL,
+  `sisang_dtlpncairan` int(11) NOT NULL,
+  `pnjr_dtlpncairan` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_detailpencairan`
+--
+
+INSERT INTO `tbl_detailpencairan` (`id_detailpncairan`, `id_pencairan`, `id_rekening`, `anggaran_dtlpncairan`, `resseb_dtlpncairan`, `sisang_dtlpncairan`, `pnjr_dtlpncairan`) VALUES
+(1, 1, 1, 39900000, 950000, 38950000, 0),
+(2, 1, 2, 16878100, 1358000, 15520100, 0),
+(3, 2, 7, 6000, 400, 400, 2000),
+(5, 1, 3, 1100000, 0, 1100000, 0),
+(6, 1, 4, 31000000, 102000, 30898000, 0),
+(7, 1, 5, 4700000, 0, 4700000, 0),
+(8, 1, 6, 18000000, 1500000, 16500000, 0),
+(9, 1, 7, 52000000, 0, 52000000, 0),
+(10, 1, 8, 2250000, 504000, 1746000, 0),
+(11, 1, 9, 12900000, 0, 12900000, 0),
+(12, 1, 10, 27023900, 0, 27023900, 750000),
+(13, 1, 11, 73000000, 0, 73000000, 0),
+(14, 1, 12, 48000000, 0, 48000000, 0),
+(15, 1, 13, 53750000, 0, 53750000, 0),
+(16, 1, 14, 146780000, 6640000, 140140000, 0),
+(17, 1, 15, 8800000, 600000, 8200000, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tbl_dinas`
 --
 
@@ -189,7 +227,7 @@ INSERT INTO `tbl_menu` (`id_menu`, `nama_menu`, `is_active`) VALUES
 (1, 'Data Dashboard', 1),
 (2, 'Data Master', 1),
 (3, 'Data Transaksi', 1),
-(6, 'Data Laporan', 1),
+(6, 'Data Pengajuan', 1),
 (7, 'Data Barang dua', 1);
 
 -- --------------------------------------------------------
@@ -249,6 +287,29 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tbl_pencairandana`
+--
+
+CREATE TABLE `tbl_pencairandana` (
+  `id_pencairan` int(11) NOT NULL,
+  `judul_pencairan` varchar(120) NOT NULL,
+  `nosurat_pencairan` varchar(50) NOT NULL,
+  `kepada_pencairan` varchar(250) NOT NULL,
+  `dari_pencairan` varchar(250) NOT NULL,
+  `perihal_pencairan` varchar(250) NOT NULL,
+  `tgl_pencairan` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_pencairandana`
+--
+
+INSERT INTO `tbl_pencairandana` (`id_pencairan`, `judul_pencairan`, `nosurat_pencairan`, `kepada_pencairan`, `dari_pencairan`, `perihal_pencairan`, `tgl_pencairan`) VALUES
+(1, 'NOTA PENCAIRAN DANA (NPD)', '2.10.01.1/0143/24.01/2019', 'PPTK Kegiatan Perencanaan dan Pengembangan Kebijakan Komunikasi dan Informasi', 'Pengguna Anggaran Dinas Komunikasi dan Informatika Kabupaten Bondowoso', 'Permohonan Panjar Kegiatan Perencanaan dan Pengembangan Kebijakan Komunikasi dan Informasi', '2020-07-31');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tbl_pnmbhnstkbrg`
 --
 
@@ -278,6 +339,44 @@ WHERE tbl_barang.id_barang = new.id_barang;
 END
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_rekening`
+--
+
+CREATE TABLE `tbl_rekening` (
+  `id_rekening` int(11) NOT NULL,
+  `kode_rekening` varchar(50) NOT NULL,
+  `uraian_rekening` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_rekening`
+--
+
+INSERT INTO `tbl_rekening` (`id_rekening`, `kode_rekening`, `uraian_rekening`) VALUES
+(1, '5.2.1.01.01', 'Honorarium Panitia Pelaksana Kegiatan'),
+(2, '5.2.2.01.01', 'Belanja Alat Tulis Kantor'),
+(3, '5.2.2.01.04', 'Belanja Perangko, Materai dan Benda Pos Lainnya'),
+(4, '5.2.2.01.06', 'Belanja Bahan Bakar Minyak / Gas'),
+(5, '5.2.2.03.03', 'Belanja Listrik'),
+(6, '5.2.2.03.05', 'Belanja Surat Kabar / Majalah'),
+(7, '5.2.2.06.01', 'Belanja Cetak'),
+(8, '5.2.2.06.02', 'Belanja Pengadaan'),
+(9, '5.2.2.11.02', 'Belanja Makanan dan Minuman Rapat'),
+(10, '5.2.2.15.02', 'Belanja Peralatan Dinas Luas Daerah'),
+(11, '5.2.2.20.04', 'Belanja Pemeliharan Peralatan dan Mesin'),
+(12, '5.2.2.20.06', 'Belanja Pemeliharan Aset Tetap Lainnya'),
+(13, '5.2.2.33.02', 'Belanja Dekorasi'),
+(14, '5.2.2.33.03', 'Belanja Tenaga Kerja Non Pegawai'),
+(15, '5.2.2.37.01', 'Belanja Tenaga Ahli / Instruktur / Narasumber'),
+(16, '5.2.3.29.06', 'Belanja Modal Peralatan dan Mesin - Pengadaan Peralatan Jaringan'),
+(17, '5.2.2.08.01', 'Belanja Sewa Sarana Mobilitas Darat'),
+(18, '5.2.2.15.01', 'Belanja Perjalanan Dinas Dalam Daerah'),
+(19, '5.2.2.03.06', 'Belanja Kawat / Faksimili / Internet / Intranet / TV Kabel / TV Satelit'),
+(20, '5.2.3.90.02', 'Belanja Modal Aset Lainnya - Pengadaan Website');
 
 -- --------------------------------------------------------
 
@@ -350,7 +449,9 @@ INSERT INTO `tbl_sub_menu` (`id_sub_menu`, `id_menu`, `icon_sub_menu`, `nama_sub
 (15, 2, 'fa fa-building-o', 'Master Dinas', 'Cdinas/index'),
 (16, 2, 'fa fa-list', 'Master Kegiatan', 'Ckegiatan/index'),
 (17, 2, 'fa fa-lock', 'Master Satuan', 'Csatuan/index'),
-(18, 2, 'fa fa-file', 'Master Jenis Barang', 'Cjenis/index');
+(18, 2, 'fa fa-file', 'Master Jenis Barang', 'Cjenis/index'),
+(19, 6, 'fa fa-dollar', 'Pengajuan Pencairan Dana', 'Cpencairandana/index'),
+(20, 2, 'fa fa-book', 'Master Rekening', 'Crekening/index');
 
 -- --------------------------------------------------------
 
@@ -424,7 +525,9 @@ INSERT INTO `tbl_user_access` (`id_user_access`, `id_role`, `id_sub_menu`) VALUE
 (25, 2, 14),
 (26, 1, 16),
 (27, 1, 17),
-(28, 1, 18);
+(28, 1, 18),
+(29, 1, 19),
+(30, 1, 20);
 
 --
 -- Indexes for dumped tables
@@ -435,6 +538,12 @@ INSERT INTO `tbl_user_access` (`id_user_access`, `id_role`, `id_sub_menu`) VALUE
 --
 ALTER TABLE `tbl_barang`
   ADD PRIMARY KEY (`id_barang`);
+
+--
+-- Indeks untuk tabel `tbl_detailpencairan`
+--
+ALTER TABLE `tbl_detailpencairan`
+  ADD PRIMARY KEY (`id_detailpncairan`);
 
 --
 -- Indeks untuk tabel `tbl_dinas`
@@ -473,10 +582,22 @@ ALTER TABLE `tbl_peminjaman`
   ADD PRIMARY KEY (`id_peminjaman`);
 
 --
+-- Indeks untuk tabel `tbl_pencairandana`
+--
+ALTER TABLE `tbl_pencairandana`
+  ADD PRIMARY KEY (`id_pencairan`);
+
+--
 -- Indeks untuk tabel `tbl_pnmbhnstkbrg`
 --
 ALTER TABLE `tbl_pnmbhnstkbrg`
   ADD PRIMARY KEY (`id_pnmbhnstkbrg`);
+
+--
+-- Indeks untuk tabel `tbl_rekening`
+--
+ALTER TABLE `tbl_rekening`
+  ADD PRIMARY KEY (`id_rekening`);
 
 --
 -- Indeks untuk tabel `tbl_role`
@@ -525,6 +646,12 @@ ALTER TABLE `tbl_barang`
   MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
+-- AUTO_INCREMENT untuk tabel `tbl_detailpencairan`
+--
+ALTER TABLE `tbl_detailpencairan`
+  MODIFY `id_detailpncairan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT untuk tabel `tbl_dinas`
 --
 ALTER TABLE `tbl_dinas`
@@ -561,10 +688,22 @@ ALTER TABLE `tbl_peminjaman`
   MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
+-- AUTO_INCREMENT untuk tabel `tbl_pencairandana`
+--
+ALTER TABLE `tbl_pencairandana`
+  MODIFY `id_pencairan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT untuk tabel `tbl_pnmbhnstkbrg`
 --
 ALTER TABLE `tbl_pnmbhnstkbrg`
   MODIFY `id_pnmbhnstkbrg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT untuk tabel `tbl_rekening`
+--
+ALTER TABLE `tbl_rekening`
+  MODIFY `id_rekening` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_role`
@@ -582,7 +721,7 @@ ALTER TABLE `tbl_satuan`
 -- AUTO_INCREMENT untuk tabel `tbl_sub_menu`
 --
 ALTER TABLE `tbl_sub_menu`
-  MODIFY `id_sub_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_sub_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_surat`
@@ -600,7 +739,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT untuk tabel `tbl_user_access`
 --
 ALTER TABLE `tbl_user_access`
-  MODIFY `id_user_access` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_user_access` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

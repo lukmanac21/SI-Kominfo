@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<td>Harga</td>
 				<td>Keterangan</td>
 				<td>OPD</td>
-				<td>Foto Barang</td>
+				<!-- <td>Foto Barang</td> -->
 			</tr>
 			<tbody>
 				<?php $i=1?>
@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<td><?php echo $key->harga_barang?></td>
 				<td><?php echo date('Y', strtotime($key->tgl_barang))?></td>
 				<td><?= get_status($key->id_barang);?></td>
-				<td><img src="<?= base_url();?>assets/img/barang/<?= $key->img_barang;?>" width="100%" class="img-thumbnail"></td>
+				<!-- <td><img src="<?= base_url();?>assets/img/barang/<?= $key->img_barang;?>" width="100%" class="img-thumbnail"></td> -->
 			<?php }?>
 			</tr>
 			</tbody>

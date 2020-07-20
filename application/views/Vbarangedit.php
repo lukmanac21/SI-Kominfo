@@ -162,12 +162,20 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                    <div class="col-sm-6">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Jumlah</label>
                                                 <input text="number" class="form-control" min="1" name="stok_barang" value="<?= $row->stok_barang;?>">
                                             </div>
                                         </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>FCC Barang</label>
+                                                <input text="text" class="form-control" name="fcc_barang" value="<?= $row->fcc_barang;?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="custom-file-label" for="pimages">Gambar</label>

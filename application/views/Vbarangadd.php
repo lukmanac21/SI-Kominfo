@@ -167,10 +167,19 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
+                                                <label>FCC Barang</label>
+                                                <input text="text" class="form-control" name="fcc_barang">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="col-sm-6">
+                                            <div class="form-group">
                                                 <label class="custom-file-label" for="pimages">Gambar</label>
                                                 <input type="file" class="custom-file-input  form-control" name="pimages">
                                             </div>
                                         </div>
+
                                     </div>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                     <button type="reset" class="btn btn-danger">Hapus</button>

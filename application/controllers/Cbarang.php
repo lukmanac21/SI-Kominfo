@@ -68,6 +68,7 @@ class Cbarang extends CI_Controller {
         $id_satuan                  = $this->input->post('id_satuan');
         $tgl_barang                 = $this->input->post('tgl_barang');
         $model_barang               = $this->input->post('model_barang');
+        $fcc_barang                 = $this->input->post('fcc_barang');
         $upc_barang                 = $this->input->post('upc_barang');
         $hwversi_barang             = $this->input->post('hwversi_barang');
         $cmiit_barang               = $this->input->post('cmiit_barang');
@@ -106,6 +107,7 @@ class Cbarang extends CI_Controller {
                 'tgl_barang'        => $tgl_barang,        
                 'nama_barang'       => $nama_barang,
                 'model_barang'      => $model_barang,
+                'fcc_barang'        => $fcc_barang,
                 'upc_barang'        => $upc_barang,
                 'hwversi_barang'    => $hwversi_barang,
                 'cmiit_barang'      => $cmiit_barang,
@@ -144,6 +146,7 @@ class Cbarang extends CI_Controller {
         $id_satuan                  = $this->input->post('id_satuan');
         $tgl_barang                 = $this->input->post('tgl_barang');
         $model_barang               = $this->input->post('model_barang');
+        $fcc_barang                 = $this->input->post('fcc_barang');
         $upc_barang                 = $this->input->post('upc_barang');
         $hwversi_barang             = $this->input->post('hwversi_barang');
         $cmiit_barang               = $this->input->post('cmiit_barang');
@@ -178,6 +181,7 @@ class Cbarang extends CI_Controller {
                 'tgl_barang'        => $tgl_barang,        
                 'nama_barang'       => $nama_barang,
                 'model_barang'      => $model_barang,
+                'fcc_barang'        => $fcc_barang,
                 'upc_barang'        => $upc_barang,
                 'hwversi_barang'    => $hwversi_barang,
                 'cmiit_barang'      => $cmiit_barang,
@@ -203,10 +207,6 @@ class Cbarang extends CI_Controller {
     }
     public function printPdf(){
         $mpdf = new \Mpdf\Mpdf();
-        $mpdf->SetHTMLHeader('
-        <p style="text-align:center">Dinas Komunikasi dan Informatika Bondowoso <br> Jalan Panjaitan 56 Bondowoso</p>
-        
-        ');
         $mpdf->SetHTMLFooter('
         <table width = "100%">
             <tr>

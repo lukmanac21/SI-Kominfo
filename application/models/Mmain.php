@@ -122,4 +122,22 @@ class Mmain extends CI_MODEL{
         $this->db->where($where);
         $this->db->update($table, $data);
     }
+    function show_data_pencairan($id_pencairan){
+        $this->db->select('*');
+        $this->db->from('tbl_detailpencairan');
+        $this->db->join('tbl_rekening','tbl_detailpencairan.id_rekening = tbl_rekening.id_rekening');
+        $this->db->join('tbl_pencairandana','tbl_detailpencairan.id_pencairan = tbl_pencairandana.id_pencairan');
+        $this->db->where('tbl_detailpencairan.id_pencairan =',$id_pencairan);
+        $this->db->order_by('tbl_rekening.kode_rekening ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function show_data_pencairan_header($id_pencairan){
+        $this->db->select('*');
+        $this->db->from('tbl_pencairandana');
+        $this->db->where('tbl_pencairandana.id_pencairan =',$id_pencairan);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }
